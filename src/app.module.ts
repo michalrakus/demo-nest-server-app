@@ -1,12 +1,12 @@
 import {Module} from '@nestjs/common';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
-import {Pokus1Module} from '@michalrakus/x-nest-server-lib/pokus1.module';
+import {XLibModule} from '@michalrakus/x-nest-server-lib/x-lib.module';
 import {TypeOrmModule, TypeOrmModuleOptions} from "@nestjs/typeorm";
-import {Car} from "./pokus1/car.entity";
-import {Brand} from "./pokus1/brand.entity";
-import {Country} from "./pokus1/country.entity";
-import {Drive} from "./pokus1/drive.entity";
+import {Car} from "./model/car.entity";
+import {Brand} from "./model/brand.entity";
+import {Country} from "./model/country.entity";
+import {Drive} from "./model/drive.entity";
 import {XUser} from "@michalrakus/x-nest-server-lib/xuser.entity";
 
 const {parseUri} = require('mysql-parse')
@@ -29,7 +29,7 @@ const typeOrmModuleOptions: TypeOrmModuleOptions = {
 };
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmModuleOptions), Pokus1Module.forRoot(typeOrmModuleOptions)],
+  imports: [TypeOrmModule.forRoot(typeOrmModuleOptions), XLibModule.forRoot(typeOrmModuleOptions)],
   controllers: [AppController],
   providers: [AppService]
 })
