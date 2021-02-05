@@ -8,10 +8,10 @@ export class Drive {
     @PrimaryGeneratedColumn({name: 'id_drive'})
     idDrive: number;
 
-    @Column({name: 'city_from', length: 255})
+    @Column({name: 'city_from', length: 32, nullable: false})
     cityFrom: string;
 
-    @Column({name: 'city_to', length: 255, nullable: true})
+    @Column({name: 'city_to', length: 32, nullable: true})
     cityTo: string;
 
     @Column({nullable: true})

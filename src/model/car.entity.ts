@@ -8,16 +8,16 @@ export class Car {
     @PrimaryGeneratedColumn({name: 'id_car'})
     idCar: number;
 
-    @Column({length: 255})
+    @Column({length: 8, nullable: false})
     vin: string;
 
-    @Column({length: 255})
+    @Column({length: 32, nullable: true})
     brand: string;
 
-    @Column({length: 255})
+    @Column({length: 4, nullable: true})
     year: string;
 
-    @Column({nullable: true, length: 255})
+    @Column({length: 32, nullable: true})
     color: string;
 
     @Column({type: 'decimal', precision: 12, scale: 2, nullable: true})

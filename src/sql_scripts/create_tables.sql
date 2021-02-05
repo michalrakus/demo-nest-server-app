@@ -1,12 +1,12 @@
 CREATE TABLE brand (
 	id_brand int NOT NULL auto_increment,
-	brand varchar(32),
+	brand varchar(32) NOT NULL,
 	PRIMARY KEY (id_brand)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE car (
 	id_car int NOT NULL auto_increment,
-	vin varchar(8),
+	vin varchar(8) NOT NULL,
 	brand varchar(32),
     year varchar(4),
     color varchar(32) NULL,
@@ -19,14 +19,14 @@ CREATE TABLE car (
 
 CREATE TABLE country (
 	id_country int NOT NULL auto_increment,
-	code varchar(8),
-	name varchar(32),
+	code varchar(8) NOT NULL,
+	name varchar(32) NOT NULL,
 	PRIMARY KEY (id_country)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE drive (
 	id_drive int NOT NULL auto_increment,
-	city_from varchar(32),
+	city_from varchar(32) NOT NULL,
 	city_to varchar(32),
     km int,
     fuel_price DECIMAL(12,2),
@@ -36,16 +36,6 @@ CREATE TABLE drive (
 	id_country int,
 	PRIMARY KEY (id_drive)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
-CREATE TABLE x_user (
-	id_x_user int NOT NULL auto_increment,
-	username varchar(64),
-	password varchar(64),
-    name varchar(128), -- meno a priezvisko
-	PRIMARY KEY (id_x_user)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
-CREATE INDEX x_user_username_idx ON x_user (username);
 
 /* poznamocka */
 /*ALTER TABLE car ADD id_brand int AFTER color;*/
