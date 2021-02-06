@@ -14,8 +14,8 @@ export class Car {
     @Column({length: 32, nullable: true})
     brand: string;
 
-    @Column({length: 4, nullable: true})
-    year: string;
+    @Column({width: 4, nullable: true})
+    year: number;
 
     @Column({length: 32, nullable: true})
     color: string;

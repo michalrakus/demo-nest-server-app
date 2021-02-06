@@ -8,7 +8,7 @@ CREATE TABLE car (
 	id_car int NOT NULL auto_increment,
 	vin varchar(8) NOT NULL,
 	brand varchar(32),
-    year varchar(4),
+    year int(4),
     color varchar(32) NULL,
     price DECIMAL(12,2),
     car_date DATE,
