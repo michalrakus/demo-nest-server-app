@@ -33,6 +33,6 @@ export class Car {
     @JoinColumn({ name: "id_brand" })
     brandAssoc: Brand;
 
-    @OneToMany(type => Drive, drive => drive.car, {cascade: ["insert", "update"]})
+    @OneToMany(type => Drive, drive => drive.car, {cascade: ["insert", "update", "remove"]})
     driveList: Drive[];
 }

@@ -8,6 +8,8 @@ import {Brand} from "./model/brand.entity";
 import {Country} from "./model/country.entity";
 import {Drive} from "./model/drive.entity";
 import {XUser} from "@michalrakus/x-nest-server-lib/xuser.entity";
+import {XBrowseMeta} from "@michalrakus/x-nest-server-lib/x-browse-meta.entity";
+import {XColumnMeta} from "@michalrakus/x-nest-server-lib/x-column-meta.entity";
 
 const {parseUri} = require('mysql-parse')
 let connectionUrl = process.env.JAWSDB_URL; // pouzivane na heroku
@@ -23,7 +25,7 @@ const typeOrmModuleOptions: TypeOrmModuleOptions = {
   username: connectionOptions.user,
   password: connectionOptions.password,
   database: connectionOptions.database,
-  entities: [XUser, Car, Brand, Drive, Country],
+  entities: [XUser, XBrowseMeta, XColumnMeta, Car, Brand, Drive, Country],
   synchronize: false,
   logging: true
 };
