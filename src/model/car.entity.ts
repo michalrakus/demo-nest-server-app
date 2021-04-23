@@ -29,6 +29,9 @@ export class Car {
     @Column({name: 'car_datetime', type: 'datetime', nullable: true})
     carDatetime: Date;
 
+    @Column({name: 'car_boolean', nullable: true})
+    carBoolean: boolean;
+
     @ManyToOne(type => Brand)
     @JoinColumn({ name: "id_brand" })
     brandAssoc: Brand;

@@ -13,6 +13,7 @@ CREATE TABLE car (
     price DECIMAL(12,2),
     car_date DATE,
     car_datetime DATETIME,
+    car_boolean tinyint(1),
 	id_brand int,
 	PRIMARY KEY (id_car)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -32,6 +33,7 @@ CREATE TABLE drive (
     fuel_price DECIMAL(12,2),
     drive_date DATE,
     drive_datetime DATETIME,
+    drive_boolean tinyint(1),
 	id_car int NOT NULL,
 	id_country int,
 	PRIMARY KEY (id_drive)

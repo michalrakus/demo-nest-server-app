@@ -10,6 +10,7 @@ import {Drive} from "./model/drive.entity";
 import {XUser} from "@michalrakus/x-nest-server-lib/xuser.entity";
 import {XBrowseMeta} from "@michalrakus/x-nest-server-lib/x-browse-meta.entity";
 import {XColumnMeta} from "@michalrakus/x-nest-server-lib/x-column-meta.entity";
+import {MulterModule} from "@nestjs/platform-express";
 
 const {parseUri} = require('mysql-parse')
 let connectionUrl = process.env.JAWSDB_URL; // pouzivane na heroku
@@ -31,7 +32,7 @@ const typeOrmModuleOptions: TypeOrmModuleOptions = {
 };
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmModuleOptions), XLibModule.forRoot(typeOrmModuleOptions)],
+  imports: [TypeOrmModule.forRoot(typeOrmModuleOptions), XLibModule.forRoot(typeOrmModuleOptions), MulterModule.register({dest: 'uploads/'})],
   controllers: [AppController],
   providers: [AppService]
 })

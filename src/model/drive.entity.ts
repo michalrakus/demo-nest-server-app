@@ -26,6 +26,9 @@ export class Drive {
     @Column({name: 'drive_datetime', type: 'datetime', nullable: true})
     driveDatetime: Date;
 
+    @Column({name: 'drive_boolean', nullable: true})
+    driveBoolean: boolean;
+
     @ManyToOne(type => Car, car => car.driveList)
     @JoinColumn({name: "id_car"})
     car: Car;
