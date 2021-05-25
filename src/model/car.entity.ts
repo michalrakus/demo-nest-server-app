@@ -32,7 +32,7 @@ export class Car {
     @Column({name: 'car_boolean', nullable: true})
     carBoolean: boolean;
 
-    @ManyToOne(type => Brand)
+    @ManyToOne(type => Brand, {nullable: true})
     @JoinColumn({ name: "id_brand" })
     brandAssoc: Brand;
 

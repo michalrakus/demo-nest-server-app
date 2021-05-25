@@ -29,11 +29,11 @@ export class Drive {
     @Column({name: 'drive_boolean', nullable: true})
     driveBoolean: boolean;
 
-    @ManyToOne(type => Car, car => car.driveList)
+    @ManyToOne(type => Car, car => car.driveList, {nullable: false})
     @JoinColumn({name: "id_car"})
     car: Car;
 
-    @ManyToOne(type => Country)
+    @ManyToOne(type => Country, {nullable: true})
     @JoinColumn({name: "id_country"})
     country: Country;
 }
