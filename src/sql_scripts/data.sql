@@ -16,6 +16,12 @@ INSERT INTO country (id_country, code, name) VALUES (5, 'GB', 'Velka Britania');
 INSERT INTO country (id_country, code, name) VALUES (6, 'PL', 'Polsko');
 INSERT INTO country (id_country, code, name) VALUES (7, 'H', 'Madarsko');
 INSERT INTO country (id_country, code, name) VALUES (8, 'AT', 'Rakusko');
+INSERT INTO country (id_country, code, name) VALUES (9, 'CH', 'Svajciarsko');
+INSERT INTO country (id_country, code, name) VALUES (10, 'I', 'Taliansko');
+INSERT INTO country (id_country, code, name) VALUES (11, 'RO', 'Rumunsko');
+INSERT INTO country (id_country, code, name) VALUES (12, 'P', 'Portugalsko');
+INSERT INTO country (id_country, code, name) VALUES (13, 'V', 'Vatikan');
+INSERT INTO country (id_country, code, name) VALUES (14, 'TR', 'Turecko');
 
 INSERT INTO car (id_car, vin, brand, year, color, id_brand, price, car_date, car_datetime) VALUES (4, 'ee8a89d8', 'Fiat', '1987', 'MaroonWW', 16, 100000.00, null, '2015-04-16 15:40:23');
 INSERT INTO car (id_car, vin, brand, year, color, id_brand, price, car_date, car_datetime) VALUES (5, '09a06548', 'VW', '1965', 'Cervena', 19, 123.11, '2015-03-10', '2015-03-22 01:00:00');
