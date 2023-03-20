@@ -9,7 +9,7 @@ import {
   Res,
   HttpStatus,
   UseGuards,
-  Request, UseFilters, ForbiddenException
+  Request, UseFilters, ForbiddenException, StreamableFile
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import {XLibService} from "@michalrakus/x-nest-server-lib/lib/services/x-lib.service";
@@ -18,11 +18,18 @@ import {Response} from 'express';
 import {ImportResponse} from "@michalrakus/x-nest-server-lib/ExportImportParam";
 import {XUser} from "@michalrakus/x-nest-server-lib/xuser.entity";
 import {Public} from "@michalrakus/x-nest-server-lib/public";
+import {FindParam} from "@michalrakus/x-nest-server-lib/lib/serverApi/FindParam";
+import {FindResult} from "@michalrakus/x-nest-server-lib/lib/serverApi/FindResult";
+import {XLazyDataTableService} from "@michalrakus/x-nest-server-lib/lib/services/x-lazy-data-table.service";
+import {CarOwner} from "./model/car-owner.entity";
+import {CarOwnerFile} from "./model/car-owner-file.entity";
+import {Readable} from 'stream';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService
-              /*private readonly xLibService: XLibService*/) {}
+  constructor(private readonly appService: AppService,
+              private readonly xLibService: XLibService,
+              private readonly xLazyDataTableService: XLazyDataTableService) {}
 
   @Public()
   @Get()
@@ -52,6 +59,13 @@ export class AppController {
     return {x: "value1", y: "value2", reqUser: req.user};
   }
 
+  @Public()
+  @Post('lazyDataTableFindRowsTest')
+  async lazyDataTableFindRowsTest(@Body() body: FindParam): Promise<FindResult> {
+      const findResult: FindResult = await this.xLazyDataTableService.findRows(body);
+    return findResult;
+  }
+
   // @Get('testDBLib')
   // async testDBLib(): Promise<string> {
   //   const userList: XUser[] = await this.xLibService.findRows({entity: 'XUser'});
@@ -62,8 +76,11 @@ export class AppController {
   //   return res;
   // }
 
+  // {dest: 'uploads/'} - zapisuje subor na disk do adresara 'uploads/' (root adresar projektu),
+  // po precitani suboru temp subor zmazeme (pozri kod)
+  // poznamka: funguje aj {dest: 'C:\\MisoRakus2\\temp\\uploads\\'}
   @Post('importCarCsv')
-  @UseInterceptors(FileInterceptor('fileField'))
+  @UseInterceptors(FileInterceptor('fileField', {dest: 'uploads/'}))
   async upload(@Body() body: any, @UploadedFile() file: Express.Multer.File, @Res() res: Response) {
 
     //console.log(typeof body.jsonField); // vrati string
@@ -101,4 +118,31 @@ export class AppController {
     });
   }
 
+  // vo FileInterceptor nie je uvedeny adresar, uploadovany subor sa uklada do pamete (do file.buffer)
+  @Post('carOwnerSaveRow')
+  @UseInterceptors(FileInterceptor('fileField'))
+  async carOwnerSaveRow(@Body() body: any, @UploadedFile() file: Express.Multer.File/*, @Res() res: Response*/): Promise<any> {
+    // body.jsonField je string, treba ho explicitne konvertovat na objekt, ani ked specifikujem typ pre "body" tak nefunguje
+    const carOwner: CarOwner = JSON.parse(body.jsonField);
+    console.log(file);
+    await this.appService.carOwnerSaveRow(carOwner, file.buffer, file.originalname);
+    return {};
+  }
+
+  @Post('carOwnerDownloadFile')
+  async carOwnerDownloadFile(@Body() body: {carOwnerFileId: number;}/*, @Res({ passthrough: true }) response: Response*/) {
+
+    const carOwnerFile: CarOwnerFile = await this.appService.findCarOwnerFileById(body.carOwnerFileId);
+
+    const stream = Readable.from(carOwnerFile.data);
+
+    // ciel tohto je pri ukladani v browseri zapisat subor pod spravnym nazvom
+    // nefungovalo mi to, musel som nazov suboru zapisat na klientovi
+    // response.set({
+    //   'Content-Disposition': `inline; filename="${carOwnerFile.filename}"`,
+    //   'Content-Type': 'image'
+    // })
+
+    return new StreamableFile(stream);
+  }
 }

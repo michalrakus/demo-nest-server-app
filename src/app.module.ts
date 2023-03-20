@@ -16,17 +16,23 @@ import {AuthModule} from "@michalrakus/x-nest-server-lib/auth.module";
 import {APP_GUARD} from "@nestjs/core";
 import {ConfigModule} from "@nestjs/config";
 import {JwtAuthGuard} from "@michalrakus/x-nest-server-lib/jwt-auth.guard";
+import {CarOwnerFile} from "./model/car-owner-file.entity";
+import {CarOwner} from "./model/car-owner.entity";
+import {XEnvVar} from "@michalrakus/x-nest-server-lib/XEnvVars";
+import {XUtils} from "@michalrakus/x-nest-server-lib/XUtils";
+import {XAdvancedConsoleLogger} from "@michalrakus/x-nest-server-lib/XAdvancedConsoleLogger";
 
-const entities: EntityClassOrSchema[] = [XUser, XBrowseMeta, XColumnMeta, Car, Brand, Drive, Country];
+const entities: EntityClassOrSchema[] = [XUser, XBrowseMeta, XColumnMeta, Car, Brand, Drive, Country, CarOwner, CarOwnerFile];
 
 // kedze metoda pouziva environment variables, musi byt zavolana az po inicializacii modulu ConfigModule
 function createTypeOrmModuleOptions(entities: EntityClassOrSchema[]): TypeOrmModuleOptions {
 
   const {parseUri} = require('mysql-parse')
-  let connectionUrl = process.env.JAWSDB_URL; // pouzivane na heroku
-  if (connectionUrl == null || connectionUrl == '') {
-    connectionUrl = process.env.X_DATABASE_URL;
-  }
+  // let connectionUrl = process.env.JAWSDB_URL; // pouzivane na heroku
+  // if (connectionUrl == null || connectionUrl == '') {
+  //   connectionUrl = process.env.X_DATABASE_URL;
+  // }
+  let connectionUrl: string = XUtils.getEnvVarValue(XEnvVar.X_DATABASE_URL);
   const connectionOptions = parseUri(connectionUrl);
 
   const typeOrmModuleOptions: TypeOrmModuleOptions = {
@@ -38,7 +44,9 @@ function createTypeOrmModuleOptions(entities: EntityClassOrSchema[]): TypeOrmMod
     database: connectionOptions.database,
     entities: entities,
     synchronize: false,
-    logging: true
+    // logging: true sme nahradili custom loggerom - rozumne loguje parameter typu Buffer
+    //logging: true,
+    logger: new XAdvancedConsoleLogger(XUtils.getEnvVarValueBoolean(XEnvVar.X_LOG_SQL))
   };
   return typeOrmModuleOptions;
 }
@@ -53,7 +61,7 @@ function createTypeOrmModuleOptions(entities: EntityClassOrSchema[]): TypeOrmMod
     TypeOrmModule.forFeature(entities),
     XLibModule.forRoot(),
     AuthModule,
-    MulterModule.register({dest: 'uploads/'})
+    MulterModule.register(/*{dest: 'uploads/'}*/) // globalne nastavenie ako spracovavat subory, zatial nastavujeme na metodach controllera
   ],
   controllers: [AppController],
   providers: [

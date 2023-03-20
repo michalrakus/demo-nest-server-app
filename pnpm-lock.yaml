@@ -8,7 +8,7 @@ importers:
 
   .:
     specifiers:
-      '@michalrakus/x-nest-server-lib': 1.0.0
+      '@michalrakus/x-nest-server-lib': 1.1.0
       '@nestjs/cli': ^9.2.0
       '@nestjs/common': ^9.3.9
       '@nestjs/config': ^2.3.1
@@ -46,7 +46,7 @@ importers:
       typeorm: ^0.3.11
       typescript: ^4.9.5
     dependencies:
-      '@michalrakus/x-nest-server-lib': 1.0.0_rdxucavrvr5kwnoac7afdqdflu
+      '@michalrakus/x-nest-server-lib': 1.1.0_rdxucavrvr5kwnoac7afdqdflu
       '@nestjs/common': 9.3.9_mnr6j2del53muneqly5h4y27ai
       '@nestjs/config': 2.3.1_jrq2rdgfp2sx67wmylmrqliwxe
       '@nestjs/core': 9.3.9_q6agyr4hwia55oswpsa7zjxcpm
@@ -881,8 +881,8 @@ packages:
       - supports-color
     dev: false
 
-  /@michalrakus/x-nest-server-lib/1.0.0_rdxucavrvr5kwnoac7afdqdflu:
-    resolution: {integrity: sha512-6ZQC5kG59SdqPYi+IQSlI4K/ZrMUZrtlah+Vp3dtSwjnya+02AIEPRpuE3C+asbYwgvS5Jf17SvtcMItAD710Q==}
+  /@michalrakus/x-nest-server-lib/1.1.0_rdxucavrvr5kwnoac7afdqdflu:
+    resolution: {integrity: sha512-bcivbGF8HajW/3KsuZ4qJiH5VShU+bwQUDGxnfpN5nbckmZp5V/Hr2ToOrsH0yIFrU8NXJYv2SzTXnhzQ/WARw==}
     requiresBuild: true
     peerDependencies:
       '@nestjs/common': ^9.3.9

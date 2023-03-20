@@ -28,7 +28,7 @@
     "node": "18.x"
   },
   "dependencies": {
-    "@michalrakus/x-nest-server-lib": "1.0.0",
+    "@michalrakus/x-nest-server-lib": "1.1.0",
     "@nestjs/common": "^9.3.9",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.3.9",
