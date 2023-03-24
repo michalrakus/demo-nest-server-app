@@ -25,3 +25,5 @@ CREATE TABLE car_owner_file (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 ALTER TABLE car_owner_file ADD CONSTRAINT car_owner_file_car_owner FOREIGN KEY (car_owner_id) REFERENCES car_owner (id);
+
+alter table car add comment varchar(512);

@@ -32,6 +32,9 @@ export class Car {
     @Column({name: 'car_boolean', nullable: true})
     carBoolean: boolean;
 
+    @Column({length: 512, nullable: true})
+    comment: string;
+
     @ManyToOne(type => Brand, {nullable: true})
     @JoinColumn({ name: "id_brand" })
     brandAssoc: Brand;

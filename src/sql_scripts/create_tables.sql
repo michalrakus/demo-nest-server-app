@@ -14,6 +14,7 @@ CREATE TABLE car (
     car_date DATE,
     car_datetime DATETIME,
     car_boolean tinyint(1),
+    comment varchar(512),
 	id_brand int,
 	PRIMARY KEY (id_car)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
